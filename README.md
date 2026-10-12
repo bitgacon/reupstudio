@@ -19,6 +19,13 @@ không phải bản cam kết đã nghiệm thu trên mọi máy.
 
 ## Cài từ mã nguồn (Windows)
 
+**Không rành Git/Python?** Vào [Releases](https://github.com/bitgacon/reupstudio/releases),
+tải file `ReupStudio-0.5.1-Community-Lite-Setup.exe` trong **Assets**, chạy setup,
+rồi mở shortcut Reup Voice Studio. Không cần tải “Source code” hoặc tự cài Python.
+Trong app, vào Cài đặt → Thư viện để cài bộ TTS/Whisper cần dùng. Setup chỉ có core,
+không kèm model AI; API dịch/cloud TTS có thể có phí riêng. File setup chưa ký số;
+hãy đối chiếu SHA256/nguồn GitHub, không tắt cơ chế bảo vệ Windows.
+
 1. Cài **Python 3.11 x64** (có Python Launcher) và Git.
 2. Clone repo và cài core:
 

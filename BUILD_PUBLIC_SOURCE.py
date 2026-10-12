@@ -6,7 +6,7 @@ FILES=('README.md','CONTRIBUTING.md','.gitignore','.gitattributes','requirements
  'requirements-dev.txt','requirements.txt','requirements-vision.txt','INSTALL_CORE.bat',
  'INSTALL_DOWNLOADS.bat','MO_REUP_VOICE_STUDIO.bat','MO_BANG_TRINH_DUYET.bat',
  'run.py','launcher.py','release-policy.json','LICENSE','LICENSE-MPT.txt','OFL-BeVietnamPro.txt',
- 'THIRD_PARTY_NOTICES.md','BUILD_LAUNCHER.py','BUILD_INSTALLER.py','installer.iss',
+ 'THIRD_PARTY_NOTICES.md','BUILD_LAUNCHER.py','BUILD_INSTALLER.py','BUILD_COMMUNITY_SETUP.py','installer.iss',
  'PREPARE_CREATIVE.py','RECOVER_POWER_LOSS.py','CTC_ALIGNMENT.py','TRACKING_POLICY.py',
  'REIDENTIFY_POLICY.py','BUILD_PUBLIC_SOURCE.py','HUONG_DAN.md','CAI_DAT_LITE.md',
  'HUONG_DAN_TTS_DA_NGON_NGU.md','HUONG_DAN_AI_NANG_CAO.md',

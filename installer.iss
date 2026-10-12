@@ -19,7 +19,7 @@ SetupLogging=yes
 SetupIconFile=__STAGE__\web\app.ico
 UninstallDisplayIcon={app}\ReupVoiceStudio.exe
 CloseApplications=no
-LicenseFile=__STAGE__\THIRD_PARTY_NOTICES.md
+LicenseFile=__STAGE__\LICENSE
 DisableProgramGroupPage=yes
 
 [Files]
