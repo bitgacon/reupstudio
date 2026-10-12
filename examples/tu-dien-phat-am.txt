@@ -1,0 +1,4 @@
+# Mỗi dòng: từ = cách đọc. Nhập trong Từ điển / viết tắt rồi bấm Lưu.
+SGK = Sách giáo khoa
+TP.HCM = Thành phố Hồ Chí Minh
+km/h = ki lô mét trên giờ

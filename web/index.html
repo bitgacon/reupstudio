@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="reup-version" content="__REUP_VERSION__"><meta name="reup-web-build" content="__REUP_WEB_BUILD__">
+<title>Reup Voice Studio</title><link rel="icon" href="/static/app.ico"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/editor.css"><link rel="stylesheet" href="/static/settings.css"><link rel="stylesheet" href="/static/sequence.css"><link rel="stylesheet" href="/static/compact.css"></head>
+<body>
+<script src="/static/removal-fast-ui.js"></script>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">≋</span><div>Reup Voice Studio<small>Giọng Việt. Nội dung của bạn. <span id="app-version" title="Bản giao diện __REUP_WEB_BUILD__">v__REUP_VERSION__</span></small></div></div>
+  <div class="header-actions"><span id="engine-status" class="status"><i></i> Chưa nạp model</span><button class="icon" id="theme" title="Đổi sáng/tối" aria-label="Đổi sáng/tối">◐</button><button class="icon" id="settings-open" title="Cài đặt" aria-label="Cài đặt">⚙</button></div>
+</header>
+<nav class="tabs" aria-label="Chức năng chính">
+  <button data-tab="tts" class="active">♬ <span>Văn bản → Giọng nói</span></button>
+  <button data-tab="clone">✧ <span>Voice Clone</span></button>
+  <button data-tab="dub">▣ <span>Lồng tiếng video</span></button>
+  <button data-tab="edit">▦ <span>Biên tập video</span></button>
+  <button data-tab="podcast">♧ <span>Hội thoại / Podcast</span></button>
+  <button data-tab="documents">▤ <span>Đọc tài liệu</span></button>
+  <button id="history-open" class="history-link">◷ Lịch sử <span id="history-count">0</span></button>
+</nav>
+<div id="ui-update-notice" class="hidden" role="status">Giao diện và máy chủ khác phiên bản. Hãy lưu các thay đổi, rồi đóng và mở lại Reup Voice Studio. Không tự tải lại để tránh mất nội dung đang sửa.</div>
+<main>
+<section id="page-tts" class="page active">
+  <div class="page-heading"><div><span class="eyebrow">PHÒNG THU CỦA BẠN</span><h1>Từ con chữ, thành giọng nói.</h1><p>Chọn giọng, viết nội dung và tạo audio ngay trên máy.</p></div><span class="local-badge">● Không gửi văn bản TTS lên mạng</span></div>
+  <div class="grid tts-grid">
+    <article class="card text-card"><div class="card-heading"><h2>Văn bản đọc</h2><div class="actions"><button id="paste-text" class="quiet">Dán</button><button id="copy-text" class="quiet">Chép</button><button id="clear-text" class="quiet danger">Xóa</button></div></div>
+      <textarea id="tts-text" class="script-input" placeholder="Nhập nội dung muốn đọc…">Xin chào! Đây là Reup Voice Studio. Biến ý tưởng của bạn thành giọng nói tiếng Việt, ngay trên máy tính.</textarea>
+      <div class="editor-tools"><span class="muted">Sắc thái & khoảng nghỉ</span><div class="chips"><button data-tag="[cười]" class="chip orange">☺ Cười</button><button data-tag="[hắng giọng]" class="chip purple">♬ Hắng giọng</button><button data-tag="[thở dài]" class="chip blue">≈ Thở dài</button><button data-tag="[nghỉ 1s]" class="chip">Ⅱ Nghỉ 1 giây</button></div><small>Thẻ cảm xúc phụ thuộc model và giọng; nghe thử trước khi chạy dài.</small></div>
+      <div class="samples"><span>Mẫu:</span><button class="chip" data-sample="intro">Giới thiệu</button><button class="chip" data-sample="story">Kể chuyện</button><button class="chip" data-sample="explain">Thuyết minh</button></div>
+      <div class="editor-bottom"><span id="text-count">0 ký tự</span><span>Chia đoạn tự động · WAV / MP3 / SRT</span></div>
+    </article>
+    <article class="card voice-card"><div class="card-heading"><h2>Thư viện giọng <span class="count" id="voice-count">0</span></h2><button id="reload-voices" class="quiet">↻ Nạp giọng</button></div>
+      <div class="voice-controls"><input id="voice-search" placeholder="Tìm tên, vùng miền, phong cách…" aria-label="Tìm giọng"><div class="segmented" id="voice-filter"><button data-filter="all" class="active">Tất cả</button><button data-filter="female">Nữ</button><button data-filter="male">Nam</button><button data-filter="custom">Đã clone</button></div></div>
+      <div id="voice-list" class="voice-list"><div class="empty">Bấm Nạp giọng để khởi động VieNeu.<small>Lần đầu có thể chờ nạp model; giao diện vẫn dùng được.</small></div></div>
+      <div class="control-bottom"><label>Tốc độ đọc <output id="tts-rate-label">1.00×</output></label><input id="tts-rate" type="range" min="0.5" max="2" step="0.05" value="1"><div class="range-labels"><span>0.50× · Chậm</span><span>2.00× · Nhanh</span></div><button id="tts-generate" class="primary wide">▶ Tạo giọng nói</button></div>
+    </article>
+  </div>
+</section>
+<section id="page-clone" class="page">
+  <div class="page-heading"><div><span class="eyebrow">MỘT GIỌNG NÓI RIÊNG</span><h1>Mang giọng quen vào câu chuyện mới.</h1><p>Dùng mẫu thu của bạn, hoặc audio OmniVoice đã tạo và được phép sử dụng.</p></div></div>
+  <div class="grid two-grid">
+    <article class="card"><div class="card-heading"><h2><span class="step">1</span> Mẫu giọng</h2><button class="quiet" id="record">● Thu từ micro</button></div>
+      <label class="dropzone" id="clone-drop"><span class="upload-icon">♬</span><strong>Chọn hoặc thả file audio tại đây</strong><span>WAV, MP3, M4A, OGG, FLAC · rõ tiếng, ít nhạc</span><small>Dùng 3–8 giây; mẫu dài sẽ lấy 8 giây đầu.</small><input type="file" id="clone-file" accept=".wav,.mp3,.m4a,.ogg,.flac,.webm" hidden></label>
+      <div id="clone-source" class="file-info">Chưa chọn mẫu giọng</div><audio id="clone-audio" controls class="wide hidden"></audio>
+      <label class="field">Tên giọng<input id="clone-name" maxlength="64" placeholder="Ví dụ: Giọng kể chuyện của tôi"></label>
+      <label class="check"><input id="clone-denoise" type="checkbox" checked> Khử nhiễu mẫu giọng</label>
+      <label class="check consent"><input id="clone-consent" type="checkbox"> Tôi sở hữu hoặc được phép sử dụng giọng này.</label>
+      <button id="clone-save" class="primary wide">✧ Clone & lưu vào thư viện</button><p class="hint">Lần clone đầu có thể hơn một phút do nạp encoder. Giọng đã lưu dùng được cho TTS, hội thoại và lồng tiếng.</p>
+    </article>
+    <article class="card flex-card"><div class="card-heading"><h2><span class="step">2</span> Nghe giọng vừa clone</h2></div><label class="field">Giọng đã lưu<select class="voice-select" id="clone-voice"></select></label><textarea id="clone-text" class="script-input">Xin chào! Đây là giọng đọc của tôi trong Reup Voice Studio. Hôm nay chúng ta sẽ cùng kể một câu chuyện mới.</textarea><button id="clone-test" class="primary wide">▶ Tạo audio nghe thử</button><p class="hint">VieNeu dùng mẫu audio, không nhập trực tiếp embedding voice.pt của OmniVoice. Độ giống phụ thuộc chất lượng mẫu.</p></article>
+  </div>
+</section>
+<section id="page-podcast" class="page">
+  <div class="page-heading"><div><span class="eyebrow">NHIỀU GIỌNG · MỘT CÂU CHUYỆN</span><h1>Cuộc trò chuyện bắt đầu từ đây.</h1><p>Viết mỗi lượt theo dạng [Tên nhân vật]: lời thoại. Gán một giọng cho từng người.</p></div></div>
+  <div class="grid podcast-grid"><article class="card flex-card"><div class="card-heading"><h2>Kịch bản hội thoại</h2><button id="podcast-sample" class="quiet">Chèn mẫu</button></div><textarea id="podcast-text" class="script-input" placeholder="[Host]: Xin chào!&#10;[Khách mời]: Rất vui được gặp bạn."></textarea><button id="podcast-generate" class="primary wide">▶ Tạo audio hội thoại</button></article><article class="card"><div class="card-heading"><h2>Giọng của từng nhân vật</h2><button id="parse-speakers" class="quiet">↻ Cập nhật</button></div><div id="speaker-list" class="speaker-list"><div class="empty">Nhập kịch bản để gán giọng.</div></div><div class="control-bottom"><label>Khoảng nghỉ giữa các đoạn <output id="pause-label">0.40s</output></label><input id="podcast-pause" type="range" min="0.1" max="1.5" step="0.1" value="0.4"><label>Tốc độ <output id="podcast-rate-label">1.00×</output></label><input id="podcast-rate" type="range" min="0.5" max="2" step="0.05" value="1"><p class="hint">Audio và SRT được ghép theo thời lượng thực tế của từng lượt đọc, không dùng mốc ước lượng.</p></div></article></div>
+</section>
+<section id="page-documents" class="page">
+  <div class="page-heading"><div><span class="eyebrow">ĐỌC TỪ TÀI LIỆU</span><h1>Đưa trang giấy vào phòng thu.</h1><p>Trích văn bản, chỉnh sửa rồi chuyển sang tạo giọng nói chỉ bằng một nút.</p></div></div>
+  <div class="grid two-grid"><article class="card"><div class="card-heading"><h2>Tài liệu của bạn</h2></div><label class="dropzone" id="document-drop"><span class="upload-icon">↥</span><strong>Chọn hoặc thả TXT, Word, PDF</strong><span>Word .docx · PDF có lớp văn bản · tối đa 30 MB</span><input type="file" id="document-file" accept=".txt,.md,.docx,.pdf" hidden></label><div id="document-source" class="file-info">Chưa chọn tài liệu</div><p class="hint">Không cần cài Word. PDF scan/ảnh cần OCR trước; ứng dụng sẽ cảnh báo trang không trích được chữ.</p><div id="document-warnings" class="notice hidden"></div></article><article class="card flex-card"><div class="card-heading"><h2>Văn bản trích xuất</h2><button id="document-clean" class="quiet">Làm sạch khoảng trắng</button></div><textarea id="document-text" class="script-input" placeholder="Nội dung sẽ xuất hiện ở đây. Bạn có thể sửa trước khi đọc…"></textarea><button id="document-to-tts" class="primary wide">Chuyển sang Văn bản → Giọng nói ↗</button></article></div>
+</section>
+<section id="page-dub" class="page">
+  <div id="project-list-view"><div class="page-heading"><div><span class="eyebrow">LỒNG TIẾNG TRÊN MÁY</span><h1>Một video. Một cách kể mới.</h1><p>Nhập SRT hoặc nhận dạng video, duyệt từng câu rồi tạo giọng giữ timeline.</p></div><button id="project-new" class="primary">＋ Dự án lồng tiếng</button></div><div id="project-grid" class="project-grid"></div><div class="notice">Video và tổng hợp giọng xử lý trên máy. Dịch/rút gọn bằng API chỉ gửi lời thoại khi bạn cho phép. Chỉ sử dụng video và giọng bạn có quyền khai thác.</div></div>
+  <div id="project-editor" class="hidden">
+    <div class="project-toolbar"><button id="project-back" class="quiet">← Dự án</button><input id="project-name" aria-label="Tên dự án" class="project-title"><span id="save-status" class="muted">Đã lưu</span><div class="spacer"></div><button id="project-save">Lưu thay đổi</button><button id="dub-generate" class="primary">▶ Tạo / Tiếp tục</button><button id="export-open" class="purple-button">Xuất kết quả ↗</button></div>
+    <div class="dub-grid"><aside class="dub-sidebar"><article class="card video-card"><div class="video-wrap"><video id="video-preview" controls preload="metadata"></video><div id="caption-preview"></div><div id="video-empty" class="empty">Chọn video để xem trước.<small>Hoặc chỉ nhập SRT để tạo audio.</small></div></div><label class="button wide file-button">＋ Chọn video<input type="file" id="video-file" accept="video/*,.mkv,.avi" hidden></label><span id="video-name" class="hint"></span><button id="video-remove" class="quiet">Bỏ video khỏi dự án</button><button id="dub-preview" class="quiet wide">▶ Xem với audio lồng tiếng đã xuất</button></article>
+      <article class="card compact"><h3>1. Phụ đề & nhận dạng</h3><label class="button wide file-button">↥ Nhập SRT có sẵn<input type="file" id="srt-file" accept=".srt" hidden></label><details><summary>Chưa có SRT? Nhận dạng bằng Whisper</summary><label class="field">Ngôn ngữ video<select id="asr-language"><option value="">Tự nhận diện</option><option value="zh">Trung</option><option value="en">Anh</option><option value="vi">Việt</option><option value="ja">Nhật</option><option value="ko">Hàn</option></select></label><label class="check"><input type="checkbox" id="allow-download"> Cho phép tải model lần đầu (Internet)</label><button id="asr-start" class="wide">Nhận dạng video</button><p class="hint">Chạy CPU; chưa tự phân vai người nói. Model chọn trong Cài đặt.</p></details></article>
+      <article class="card compact"><h3>2. Giọng đọc & bản dịch</h3><label class="field">Giọng chung<select id="dub-voice" class="voice-select"></select></label><label class="check"><input id="allow-translation" type="checkbox"> Cho phép gửi lời thoại tới API dịch (có thể tính phí)</label><button id="translate-all" class="wide">Dịch tất cả sang tiếng Việt</button><p class="hint">SRT đã Việt: bỏ qua Dịch. API được thiết lập ở ⚙.</p></article>
+      <article class="card compact"><h3>Kiểm tra trước khi tạo</h3><button id="validate-cues" class="wide">Kiểm tra SRT</button><div id="cue-issues" class="issues"></div><p class="hint">Cue cần tăng tốc &gt; 1,8× sẽ được đánh dấu. Rút gọn lời đọc và tạo lại để nghe tự nhiên hơn.</p></article>
+    </aside><article class="cue-workspace"><div class="cue-toolbar"><h2>Lời thoại <span id="cue-count" class="count">0</span></h2><select id="cue-filter" aria-label="Lọc câu" title="Tốc độ: audio thực tế trên 1,3×; chưa có audio mới thì dùng tốc độ đặt. Chưa dịch: chưa có bản dịch đúng ngôn ngữ hoặc lời còn giống nguyên văn, chưa xác nhận dịch."><option value="all">Tất cả câu</option><option value="review">Cần xem lại / lỗi</option><option value="pending">Chưa tạo</option><option value="fast">Tốc độ &gt; 1,3×</option><option value="untranslated">Câu chưa dịch</option></select><button id="cue-add" class="quiet">＋ Thêm câu</button><button id="cue-regenerate" class="quiet">Tạo lại câu đã chọn</button></div><div id="cue-list" class="cue-list"><div class="empty">Nhập SRT hoặc nhận dạng video để bắt đầu.</div></div></article></div>
+    <div class="timeline-card"><div class="timeline-heading"><span>Timeline · bấm câu để tua video</span><label>Thu phóng <input id="timeline-zoom" type="range" min="4" max="50" value="12"></label></div><div id="timeline-scroll"><div id="timeline"></div></div></div>
+  </div>
+</section>
+<section id="page-edit" class="page"></section>
+</main>
+<footer class="playerbar"><div class="player-info"><span class="sound-icon">≋</span><div><strong id="player-title">Sẵn sàng cho câu chuyện của bạn</strong><small id="player-detail">Chọn giọng và tạo audio để nghe tại đây.</small></div></div><audio id="player" controls preload="metadata"></audio><div id="player-downloads" class="actions"></div><button id="stop-play" class="icon" title="Dừng phát" aria-label="Dừng phát">■</button></footer>
+<div id="job-panel" class="job-panel hidden"><div><strong id="job-title"></strong><button id="job-cancel" class="quiet">Dừng sau bước hiện tại</button></div><progress id="job-progress" max="100" value="0"></progress><p id="job-message"></p></div>
+<div id="toast" role="status" class="toast hidden"></div>
+<dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form">
+ <div class="card-heading"><h2 id="settings-title">Cài đặt</h2><button type="button" class="dialog-close icon" aria-label="Đóng">×</button></div>
+ <div class="settings-layout">
+  <nav id="settings-nav" aria-label="Nhóm cài đặt"></nav>
+  <div id="settings-content">
+   <section id="settings-general" class="settings-page"><h3>Chung</h3>
+    <label class="field">Ngôn ngữ hiển thị<select id="ui-language"><option value="vi">Tiếng Việt</option><option value="en">English</option><option value="zh">简体中文</option></select></label>
+    <p class="hint">Chỉ đổi giao diện, không đổi ngôn ngữ lời đọc, bản dịch hoặc nội dung dự án. Một số thông báo kỹ thuật vẫn giữ nguyên ngôn ngữ gốc.</p>
+    <p class="hint">Tùy chọn giao diện tự lưu trên máy. Mỗi nhóm thư viện/API có nút lưu riêng.</p>
+   </section>
+   <section id="settings-appearance" class="settings-page" hidden><h3>Giao diện</h3>
+    <label class="field">Chế độ màu<select id="ui-theme"><option value="light">Sáng</option><option value="dark">Tối</option><option value="system">Theo hệ thống</option></select></label>
+    <label class="field">Mật độ giao diện<select id="ui-density"><option value="compact">Gọn</option><option value="comfortable">Thoáng</option></select></label>
+   </section>
+   <section id="settings-transcriber" class="settings-page" hidden><h3>Nhận dạng</h3>
+    <label class="field">Model Whisper<select id="setting-whisper"><option>tiny</option><option>base</option><option>small</option><option>medium</option><option>large-v3-turbo</option><option>large-v3</option></select></label>
+    <p class="hint">Chọn model, lưu cài đặt rồi cài Whisper trong Thư viện. Nhận dạng, karaoke và SRT gốc dùng chung bộ này.</p>
+    <button type="button" data-settings-go="libraries">Mở thư viện</button>
+   </section>
+   <section id="settings-speech" class="settings-page" hidden><h3>Giọng đọc</h3>
+    <label class="field">VieNeu CPU<select id="setting-precision"><option value="fp32">FP32 · tương thích nhiều CPU</option><option value="int8">INT8 · nhanh hơn nếu CPU phù hợp</option></select></label>
+    <p class="hint">Đổi FP32/INT8 sẽ đóng engine riêng của ứng dụng khi đang rảnh; không ảnh hưởng MPT.</p>
+    <label class="field">Thư mục VieNeuLocal (để trống = tự tìm)<input id="setting-home" placeholder="D:\…\VieNeuLocal"></label>
+   </section>
+   <section id="settings-translation" class="settings-page" hidden><h3>Dịch & API</h3>
+    <p class="hint">Không liên quan tài khoản ChatGPT. Dùng URL/model/khóa của nhà cung cấp bạn chọn. Khóa chỉ lưu trên máy, không đưa vào gói chia sẻ.</p>
+    <label class="field">Base URL<input id="setting-url" placeholder="https://nhà-cung-cấp/v1"></label>
+    <label class="field">Tên model<input id="setting-model" placeholder="Tên model theo nhà cung cấp"></label>
+    <label class="field">API key<input id="setting-key" type="password" autocomplete="new-password" placeholder="Để trống để giữ khóa hiện tại"></label>
+    <label class="check"><input type="checkbox" id="setting-clear-key"> Xóa khóa đang lưu</label>
+   </section>
+   <section id="settings-libraries" class="settings-page" hidden><h3>Thư viện</h3></section>
+   <section id="settings-storage" class="settings-page" hidden><h3>Lưu trữ</h3></section>
+   <section id="settings-ai" class="settings-page" hidden><h3>AI nâng cao</h3><div id="ai-readiness"></div></section>
+   <section id="settings-about" class="settings-page" hidden><h3>Ứng dụng & bản quyền</h3><p>Reup Voice Studio · <span>v__REUP_VERSION__</span></p><p class="hint">Bản nguồn đang phát triển. Chưa tự đóng gói thay bản Lite đã phát hành.</p></section>
+  </div>
+ </div>
+ <div class="settings-footer"><span id="settings-save-info" role="status"></span><button class="primary" type="submit">Lưu cài đặt</button></div>
+</form></dialog>
+<dialog id="history-dialog" class="large-dialog"><div class="card-heading"><h2>Lịch sử tác vụ</h2><button class="dialog-close icon">×</button></div><div id="history-list"></div></dialog>
+<dialog id="export-dialog"><div class="card-heading"><h2>Xuất bản lồng tiếng</h2><button class="dialog-close icon">×</button></div><label class="field">Kết quả<select id="export-mode"><option value="audio">Audio WAV + MP3 + SRT</option><option value="srt">Chỉ phụ đề SRT</option><option value="video">Video lồng tiếng + SRT rời</option><option value="burn">Video lồng tiếng + phụ đề dính hình</option></select></label><label class="field">Âm thanh gốc của video<select id="export-volume"><option value="0">Tắt tiếng gốc</option><option value="0.12">Giữ nhỏ 12% (có cả giọng gốc)</option><option value="0.3">Giữ 30%</option><option value="1">Giữ nguyên 100%</option></select></label><label class="check"><input id="export-normalize" type="checkbox" checked> Chuẩn hóa lời lồng tiếng mục tiêu −14 LUFS</label><p class="notice">Giữ nhỏ tiếng gốc không phải tách nhạc/loại giọng. Chưa có tách vocal, ducking tự động hay lip-sync. Kiểm tra nghe/xem sau khi xuất.</p><button id="export-start" class="primary wide">Xuất kết quả</button><div id="export-results"></div></dialog>
+<link rel="stylesheet" href="/static/removal.css"><script src="/static/i18n.js"></script><script src="/static/llm-ui.js"></script><script src="/static/libraries-ui.js"></script><script src="/static/removal-ui.js"></script><script src="/static/storage-ui.js"></script><script src="/static/reading-ui.js"></script><script src="/static/layers-ui.js"></script><script src="/static/editor-ui.js"></script><script src="/static/reframe-ui.js"></script><script src="/static/sequence-ui.js"></script><script src="/static/downloads-ui.js"></script><script src="/static/advanced-ai.js"></script><script src="/static/tts-provider-ui.js"></script><script src="/static/settings-shell.js"></script><script src="/static/app.js"></script>
+<script src="/static/backup-ui.js"></script>
+</body></html>

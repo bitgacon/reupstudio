@@ -1,0 +1,7 @@
+1
+00:00:00,500 --> 00:00:03,500
+Xin chào các bạn. Hôm nay là một ngày đẹp trời.
+
+2
+00:00:04,000 --> 00:00:07,000
+Hãy bắt đầu câu chuyện của chúng ta.

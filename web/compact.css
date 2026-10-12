@@ -1,0 +1,144 @@
+/* Compact spacing without shrinking text or pointer targets below usability. */
+#seq-studio-dialog{position:fixed;z-index:1001;top:50%;left:0;right:0;transform:translateY(-50%);width:min(620px,94vw);max-height:80vh;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 45px #0003}
+#seq-studio-dialog textarea{width:100%;margin:7px 0}#seq-studio-dialog .actions{justify-content:space-between}
+#seq-studio-dialog .seq-batch-field{display:grid;grid-template-columns:minmax(170px,1fr) minmax(110px,1fr);gap:12px;margin:8px 0}#seq-studio-dialog .seq-batch-field input[type=checkbox]{width:16px;height:16px;flex:none}#seq-studio-dialog .seq-batch-field>input,#seq-studio-dialog .seq-batch-field>select{max-width:100%;min-width:0}
+#seq-studio-tools{padding:5px 0}#seq-studio-tools>button,#seq-studio-tools>select{width:100%;margin:3px 0}#seq-studio-tools small{display:block;font-size:11px;line-height:1.4}
+.topbar{height:48px;flex-basis:48px;padding:0 18px;gap:14px}
+.brand{font-size:17px;gap:9px}.brand-mark{width:34px;height:34px;font-size:28px;line-height:30px;border-radius:9px}
+.tabs{padding:4px 16px;gap:4px}.tabs button{padding:6px 10px;font-size:12px}
+main,body[data-tab=edit] main{padding:8px 14px}
+.page-heading{margin-bottom:8px;gap:8px}.page-heading p{margin-top:2px}
+.grid{gap:10px}.card:not(.text-card){padding:12px}.card-heading{padding-bottom:8px;margin-bottom:9px}
+.field{gap:4px;margin:7px 0}.check{margin:6px 0}hr{margin:10px 0}
+.text-card>.card-heading{padding:9px 14px}.text-card>.script-input{padding:12px 14px;line-height:1.65}
+.editor-tools{padding:6px 14px}.samples,.editor-bottom{padding:6px 14px}.chips{gap:4px;margin:5px 0}
+.voice-row{padding:7px;margin:4px 0;gap:7px}.control-bottom{padding-top:8px;margin-top:7px}
+.dropzone{padding:18px 10px;gap:5px}.file-info{padding:7px 0}
+.project-toolbar{margin-bottom:5px;gap:5px}.dub-grid{gap:8px}.dub-sidebar{gap:5px}
+.dub-settings-scroll>.card{margin-bottom:4px}.dub-settings-scroll .card.compact{padding:5px 8px;margin-bottom:3px}
+.dub-settings-scroll .field{margin:3px 0;gap:3px}.edit-panel{margin:5px 0}.edit-fields{padding-top:4px;gap:2px 7px}
+.cue-card{padding:8px;margin-bottom:5px}.cue-actions{gap:4px}.cue-card textarea{padding:8px;line-height:1.5}
+.context-actions{padding-top:5px}.playerbar{min-height:48px;padding:5px 16px}
+#settings-form>.card-heading{padding:10px 18px;margin-bottom:8px}
+.storage-settings{border:1px solid var(--line);border-radius:8px;padding:7px 9px;margin-bottom:10px}
+.storage-settings summary{cursor:pointer;font-size:12px;font-weight:650}
+#settings-form .storage-settings .output-folder-row{display:grid;grid-template-columns:130px minmax(80px,1fr) auto auto;gap:5px;margin:5px 0;padding:4px;border:0}
+#settings-form .storage-settings .output-folder-row label{width:auto;font-size:11px}
+#settings-form .storage-settings input,#settings-form .storage-settings button{font-size:11px;padding:6px}
+#settings-form .distribution-card{padding:12px;margin-top:12px}.distribution-card p{margin-bottom:7px}
+#page-edit.active{height:100%;min-height:0;gap:5px;overflow:hidden}
+.seq-toolbar{gap:4px;padding-bottom:2px}.seq-toolbar button,.seq-toolbar select{padding:4px 7px;font-size:11px}
+.seq-main{gap:7px;min-height:160px}.seq-panel{padding:7px}.seq-panel h3{margin-bottom:5px}
+.seq-panel .field{margin:4px 0;gap:3px;font-size:11px}.seq-panel input,.seq-panel select{padding:4px!important}
+.seq-property-group{border-top:1px solid var(--line);margin-top:5px;padding-top:4px}.seq-property-group summary{font-size:11px;font-weight:650;cursor:pointer;padding:3px 0}
+.seq-divider{height:5px;flex:none;border-radius:4px;background:var(--line);cursor:ns-resize;touch-action:none}.seq-divider:hover,.seq-divider:focus-visible{background:var(--teal)}
+.seq-transport{gap:5px}.seq-transport input{margin:5px 0}.seq-warning{margin:0;line-height:1.35}
+.seq-media{padding:4px;margin:3px 0}.seq-media img{width:45px;height:28px}
+.seq-lane{height:42px}.seq-clip{top:3px;height:35px}.seq-track-label{padding:3px 5px}
+.seq-track-label button{margin:1px 1px 0 0;padding:1px 4px}.seq-clip span{padding-top:1px}
+.seq-ruler{height:24px}.seq-playhead{top:24px}
+.seq-selection{position:absolute;border:1px solid #ffe08a;transform-origin:center;pointer-events:none;z-index:1000;box-sizing:border-box}
+.seq-grip{position:absolute;width:14px;height:14px;min-width:14px;min-height:14px;padding:0;border:1px solid #533900;border-radius:2px;background:#ffe08a;pointer-events:auto;touch-action:none;box-shadow:0 0 2px #000;transform:translate(-50%,-50%)}
+.seq-grip.nw{left:0;top:0;transform:none;cursor:nwse-resize}.seq-grip.ne{right:0;top:0;transform:none;cursor:nesw-resize}
+.seq-grip.sw{left:0;bottom:0;transform:none;cursor:nesw-resize}.seq-grip.se{right:0;bottom:0;transform:none;cursor:nwse-resize}
+.seq-grip.rotate{left:50%;top:16px;border-radius:50%;cursor:grab;background:#8fe8e0}
+.seq-selection:before{content:'';position:absolute;left:50%;top:0;height:16px;border-left:1px solid #8fe8e0}
+.seq-selection.blur:before{display:none}
+.seq-drawing,.seq-drawing *{cursor:crosshair!important}.seq-draw-box{position:absolute;z-index:1001;border:1px dashed #ffe08a;background:#ffe08a33;pointer-events:none}
+#seq-drawmask[aria-pressed=true]{background:var(--teal);color:white}
+@media(max-width:650px){#settings-form .storage-settings .output-folder-row{grid-template-columns:minmax(80px,1fr) auto auto}#settings-form .storage-settings .output-folder-row label{grid-column:1/-1}}
+/* Per-tab folder access stays beside its player; selected groups are unmistakable. */
+#player-open-folder,#seq-open-folder{white-space:nowrap;font-size:11px;padding:5px 8px}
+.seq-clip.selected{outline:2px solid #ffb300;outline-offset:-2px;box-shadow:inset 0 0 0 2px #182e45}
+#seq-selected-count{white-space:nowrap;color:var(--accent,#008c82)}
+.seq-transport{flex-wrap:wrap}
+.seq-property-group>select{width:100%}
+#seq-stage{isolation:isolate}
+.seq-keyframe-mark{position:absolute;bottom:2px;width:6px;height:6px;transform:rotate(45deg);background:#ffdf4a;z-index:3;pointer-events:none}
+.seq-keyframes .actions{gap:3px;margin:3px 0}.seq-keyframes button{padding:3px 6px;font-size:10px}
+/* Override the global details-summary margin that inflated collapsed groups. */
+.seq-properties .seq-property-group{margin:2px 0 0;padding:2px 0 0}
+.seq-properties .seq-property-group>summary{margin:0;padding:4px 0;line-height:1.25;min-height:24px;box-sizing:border-box}
+.seq-properties h3{font-size:12px;margin:0 0 3px}
+.seq-clip-name{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4;margin-bottom:3px}
+.seq-properties .field{margin:3px 0;gap:2px}.seq-properties button{padding:4px 6px;min-height:24px;font-size:11px}
+.seq-properties .seq-warning{display:block;font-size:10px;margin:3px 0;line-height:1.25}
+.seq-properties hr{margin:5px 0}.seq-properties .seq-keyframes{max-height:110px;overflow:auto}
+.seq-library-heading{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-bottom:3px}
+.seq-library-heading h3{margin:0;font-size:12px}
+#seq-add-media{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;padding:0;font-size:21px;line-height:1}
+#seq-add-media:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+#page-downloads .two-columns{display:grid;grid-template-columns:minmax(260px,1fr) minmax(300px,1.4fr);gap:10px}
+#download-urls{width:100%;box-sizing:border-box;min-height:150px}
+#download-list{max-height:65vh;overflow:auto}
+#download-list .history-row{padding:8px;margin:4px 0}
+#download-list .history-row.selected{border-color:#009f93;background:#e0f5f1;box-shadow:inset 3px 0 #008b80}
+.download-select-row{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.download-select-row input{flex:0 0 auto;margin-top:3px}
+.download-library-head h3{margin:0;margin-right:auto}
+#download-remove-dialog{max-width:520px}
+@media(max-width:760px){#page-downloads .two-columns{grid-template-columns:1fr}}
+/* Offline creative palette: thumbnails do not enlarge the persistent editor. */
+#seq-creative{width:100%;margin:3px 0 6px;font-size:11px;padding:6px}
+#seq-creative-dialog{position:fixed;z-index:1000;top:50%;left:0;right:0;transform:translateY(-50%);width:720px;padding:16px}
+#seq-creative-dialog>.actions{justify-content:space-between;margin-bottom:8px}
+#seq-creative-dialog input{flex:1;min-width:80px}
+.creative-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-height:55vh;overflow:auto;padding:3px}
+.creative-card{display:flex;flex-direction:column;align-items:center;padding:5px;gap:5px;min-width:0;font-size:11px}
+.creative-card:hover{border-color:var(--teal);background:var(--teal-soft)}
+.creative-card img{width:100%;height:95px;object-fit:contain;border-radius:5px;background:repeating-conic-gradient(#e8edf1 0% 25%,#fff 0% 50%) 0/16px 16px}
+@media(max-width:700px){.creative-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* Shared, readable control typography; avoid inherited 16px on generated menus. */
+.seq-panel button,.seq-panel select,.seq-panel input,.seq-panel label,.seq-timeline .check,.seq-timeline label,.seq-toolbar label,#seq-creative,#seq-open-studio{font-size:12px;line-height:1.35}
+.seq-panel button,.seq-panel select{min-height:28px;padding:4px 7px;box-sizing:border-box}
+.seq-panel select{max-width:100%;width:100%}.seq-panel label{display:flex;align-items:center;gap:5px}
+.seq-panel label.field{display:flex;align-items:stretch;flex-direction:column}
+.seq-panel input[type=checkbox],.seq-timeline input[type=checkbox]{width:14px;height:14px;flex:none;margin:0}
+#seq-creative,#seq-open-studio{width:100%;margin:3px 0;padding:5px 7px;min-height:28px}
+#seq-studio-tools .seq-tool-section{margin:4px 0;border-top:1px solid var(--line);padding-top:3px}
+#seq-studio-tools .seq-tool-section>summary{font-size:12px;font-weight:650;margin:0;padding:5px 0;cursor:pointer}
+#seq-studio-tools .seq-tool-section>button,#seq-studio-tools .seq-tool-section>select{width:100%;margin:3px 0}
+#seq-studio-tools .seq-tool-section small{font-size:11px}
+#library-status{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+#library-error-detail{font-size:12px;margin:5px 0}#library-error-detail pre{font:11px/1.45 monospace;max-height:180px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+#page-removal input,#page-removal select,#page-removal button,#page-removal .button,#settings-form button,#settings-form select{font-size:12px;line-height:1.35}
+#settings-form .storage-settings button,#settings-form .storage-settings select{font-size:12px}
+#page-dub button,#page-dub select,#page-dub input,#page-dub label,#page-dub summary,.cue-actions .quiet,.dub-settings-scroll .button{font-size:12px;line-height:1.35}
+#page-dub .cue-card textarea{font-family:inherit;font-size:13px;line-height:1.4;min-height:32px;margin:3px 0;padding:5px 8px}
+#page-dub .cue-card{padding:6px 8px;margin-bottom:4px}
+#page-dub .cue-card details{margin-top:2px}
+#page-dub .cue-card summary{margin:2px 0;line-height:1.4}
+.cue-speed{font-size:12px;line-height:1.4;padding:4px 7px;margin:3px 0;border:1px solid #cbd5df;border-radius:5px;background:white;color:#263747;font-weight:600}
+.cue-speed.caution{background:rgba(255,195,35,calc(.18 + var(--speed-warning)*.42));border-color:#c28b13;color:#633e00;font-weight:700}
+.cue-speed.fast{background:#ffc17a;border-color:#bc5c00;color:#572500;font-weight:750}
+.cue-speed.very-fast{background:#f58b8b;border-color:#b62336;color:#5c0713;font-weight:800}
+.cue-speed.unknown{background:var(--soft);color:var(--muted);font-weight:400}
+#page-dub .cue-head{flex-wrap:wrap;gap:5px}
+#page-dub .cue-head .cue-speed{display:inline-block;width:auto;flex:0 1 auto;margin:0 3px;padding:2px 6px;white-space:nowrap}
+#page-dub .cue-head .badge{margin-left:auto}
+#page-dub .cue-card{border:1px solid #a7c9d5;border-left:4px solid #89bacb;background:var(--card)}
+#page-dub .cue-card:nth-child(even){background:var(--teal-soft);border-left-color:#66b9ad}
+#page-dub .cue-card .cue-actions{padding-top:4px;border-top:1px solid #96bbc64d;flex-wrap:wrap}
+#page-dub .cue-card.selected,#page-dub .cue-card:focus-within{border-color:var(--teal);border-left-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+.dub-settings-scroll{overflow-x:hidden}.dub-settings-scroll .actions{flex-wrap:wrap}.dub-sidebar #video-name{overflow-wrap:anywhere;max-width:100%;white-space:normal;min-width:0}
+.project-card .project-open{display:block;width:100%;text-align:left;border:0;background:transparent;padding:0}
+#project-grid{display:flex;flex-direction:column;gap:5px}
+#project-grid .project-card{display:flex;flex-direction:row;align-items:center;min-height:0;padding:10px 12px;gap:24px;border-radius:8px;cursor:default}
+#project-grid .project-open{flex:1;min-width:0;display:flex;align-items:center;gap:16px;padding:4px;text-align:left}
+#project-grid .project-open strong{font-size:13px;overflow-wrap:anywhere}
+#project-grid .project-open .meta{margin-left:auto;flex-shrink:0}
+#project-grid .project-delete{flex:none;margin-left:12px;border-color:#e0bdc4;color:#933747;background:transparent;font-size:12px;padding:5px 10px}
+@media(max-width:650px){#project-grid .project-open{display:block}#project-grid .project-open .meta{margin-top:4px}}
+[hidden]{display:none!important}
+.tts-provider-box{margin:5px 0;padding:8px;border:1px solid var(--line);border-radius:8px;overflow:auto;max-height:46vh;flex-shrink:0}
+.tts-provider-box summary{font-weight:600;font-size:13px;cursor:pointer}
+.tts-provider-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding-top:6px}
+.tts-provider-fields .field{margin:0;font-size:12px;gap:3px;min-width:0}
+.tts-provider-fields select,.tts-provider-fields textarea{font-size:12px;max-width:100%;min-width:0;padding:5px}
+.tts-provider-fields .check,.tts-provider-fields .hint{grid-column:1/-1;margin:3px 0;font-size:12px}
+#tts-cue-dialog{max-width:650px}
+#podcast-tts-dialog{max-width:650px}
+.podcast-speaker-card{padding:6px 8px;margin:5px 0;border:1px solid var(--line);border-radius:8px}
+.podcast-speaker-card .speaker-row{flex-wrap:wrap;gap:5px;padding:0;border:0}
+.podcast-speaker-card .speaker-row button,.podcast-speaker-card select{font-size:12px;padding:4px 7px}
+.podcast-speaker-summary{display:block;color:var(--muted);font-size:11px;overflow-wrap:anywhere;margin:3px 0 0}

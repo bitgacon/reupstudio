@@ -1,0 +1,35 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const path=require('node:path');
+test('cue speed uses combined generated rate, exact color boundaries and stale state',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'../web/app.js'),'utf8');
+ const badge={style:{setProperty(){}},textContent:''},listen={};
+ const card={querySelector:s=>s==='.cue-speed'?badge:listen};
+ const ctx=vm.createContext({});
+ vm.runInContext(source.slice(source.indexOf('function cueEstimate('),source.indexOf('function renderCues(')),ctx);
+ const cue={audio:'a.wav',status:'complete',generated_rate:1,rate:2,speed_factor:1.3,start_ms:0,end_ms:1000};
+ ctx.updateCueSpeed(card,cue);assert.equal(badge.className,'cue-speed normal');assert.match(badge.textContent,/1.30×/);
+ cue.speed_factor=1.31;ctx.updateCueSpeed(card,cue);assert.equal(badge.className,'cue-speed caution');
+ cue.speed_factor=1.5;ctx.updateCueSpeed(card,cue);assert.equal(badge.className,'cue-speed caution');
+ cue.speed_factor=1.51;ctx.updateCueSpeed(card,cue);assert.equal(badge.className,'cue-speed fast');
+ cue.speed_factor=1.2;cue.generated_rate=1.2;ctx.updateCueSpeed(card,cue);assert.match(badge.textContent,/1.44×/);
+ assert.equal(badge.textContent,'Tốc độ thực tế 1.44×, khung 1.00s');assert.match(badge.title,/Đặt 1.20× × căn 1.20×/);
+ cue.status='pending';ctx.updateCueSpeed(card,cue);assert.equal(listen.disabled,true);assert.match(badge.textContent,/Audio cũ/);
+ delete cue.audio;ctx.updateCueSpeed(card,cue);assert.match(badge.textContent,/Chưa có audio/);
+});
+test('speed and untranslated filters distinguish measured, stale and translated cues',()=>{
+ const source=fs.readFileSync(path.join(__dirname,'../web/app.js'),'utf8');const ctx=vm.createContext({});
+ vm.runInContext(source.slice(source.indexOf('function cueEstimate('),source.indexOf('function renderCues(')),ctx);
+ const match=ctx.cueMatchesFilter;
+ const c={rate:1,status:'complete',audio:'fit.wav',speed_factor:1.31,text:'你好',source_text:'你好'};
+ assert.equal(match(c,'fast'),true);c.speed_factor=1.3;assert.equal(match(c,'fast'),false);
+ c.rate=1.4;c.generated_rate=1;c.status='pending';assert.equal(match(c,'fast'),true);
+ c.rate=1;c.start_ms=0;c.end_ms=500;c.estimate={text:c.text,rate:1,start_ms:0,end_ms:500,speed:2};assert.equal(match(c,'fast'),true);
+ assert.equal(match(c,'untranslated',{target_language:'vi'}),true);
+ c.text='Xin chào';assert.equal(match(c,'untranslated',{target_language:'vi'}),false);
+ c.text=c.source_text;c.translation_state={text:{status:'complete'}};assert.equal(match(c,'untranslated',{target_language:'vi'}),false);
+ delete c.translation_state;assert.equal(match(c,'untranslated',{source_language:'vi'}),false);
+ c.translation='Hello';c.translation_language='en';assert.equal(match(c,'untranslated',{target_language:'en'}),false);assert.equal(match(c,'untranslated',{target_language:'ja'}),true);
+});

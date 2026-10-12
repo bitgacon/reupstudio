@@ -1,0 +1,10 @@
+fastapi==0.136.3
+uvicorn==0.32.1
+python-multipart==0.0.27
+requests==2.33.1
+pydub==0.25.1
+pypdf>=5,<7
+faster-whisper==1.1.0
+PySide6>=6.8,<7
+cryptography>=46,<50
+yt-dlp[default]>=2026.8.19

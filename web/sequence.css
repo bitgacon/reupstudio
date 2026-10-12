@@ -1,0 +1,37 @@
+/* A self-contained editor workspace; preview never belongs to a settings scroller. */
+body[data-tab=edit] .playerbar{display:none}
+#page-edit.active{height:calc(100dvh - 142px);display:flex;flex-direction:column;gap:8px;min-height:400px}
+body[data-tab=edit] main{padding:10px 16px 0}
+.seq-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;flex-shrink:0;overflow-x:auto;padding-bottom:3px}
+.seq-toolbar>*{flex-shrink:0}.seq-toolbar label{white-space:nowrap}
+.seq-toolbar select{max-width:220px}.seq-toolbar button{padding:6px 9px}
+.seq-main{display:grid;grid-template-columns:220px minmax(240px,1fr) 230px;gap:10px;flex:1;min-height:180px;overflow:hidden}
+.seq-panel{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px;overflow:auto;min-height:0}
+.seq-panel h3{margin:0 0 8px}.seq-panel .field{margin:7px 0}.seq-panel input{width:100%;padding:5px!important}
+.seq-monitor{display:flex;flex-direction:column;gap:6px;min-height:0;overflow:hidden;align-items:center}
+#seq-stage{position:relative;background:black;flex:1;width:100%;min-height:50px;overflow:hidden}
+#seq-stage video,#seq-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+#seq-stage video,#seq-stage img,.seq-visual{touch-action:none;user-select:none;cursor:move}
+.seq-visual{position:absolute;box-sizing:border-box}.seq-visual.text{max-width:90%;text-align:center;white-space:pre-wrap;line-height:1.2;padding:2px 6px;text-shadow:0 0 2px #000,0 0 2px #000}
+.seq-visual.blur{background:transparent}.seq-visual.chosen{outline:1px dashed #ffca4d}
+.seq-lane.text .seq-clip{background:#7852a8}.seq-lane.blur .seq-clip{background:#657580}
+.seq-panel textarea{width:100%;min-height:80px}.seq-panel input[type=checkbox]{width:auto}
+.seq-transport{display:flex;align-items:center;gap:8px;width:100%;flex-shrink:0;font-size:11px}
+.seq-transport input{margin:8px 0;flex:1}.seq-transport button{padding:5px 12px}
+.seq-media{display:flex;gap:6px;align-items:center;width:100%;text-align:left;margin:6px 0;padding:6px;overflow:hidden}
+.seq-media img{width:54px;height:34px;object-fit:contain;background:#111}.seq-media span{overflow:hidden;text-overflow:ellipsis;font-size:11px}
+.seq-timeline{height:clamp(140px,24vh,220px);flex-shrink:0;overflow:auto;border:1px solid var(--line);background:var(--card);border-radius:10px;position:relative}
+.seq-ruler{height:28px;position:sticky;top:0;background:var(--card);z-index:5;border-bottom:1px solid var(--line);cursor:crosshair}
+.seq-ruler span{position:absolute;top:5px;font-size:10px;pointer-events:none}
+.seq-lane{display:flex;height:64px;border-bottom:1px solid var(--line);position:relative}
+.seq-track-label{position:sticky;left:0;width:155px;flex-shrink:0;background:var(--card);z-index:4;padding:5px;font-size:10px;overflow:hidden}
+.seq-track-label strong{display:block}.seq-track-label button{padding:2px 5px;margin:3px 2px 0 0;font-size:10px}
+.seq-lane-body{position:relative;flex-shrink:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 99px,var(--line) 100px);}
+.seq-clip{position:absolute;top:5px;height:53px;background:#146c83;color:white;border:2px solid transparent;border-radius:5px;overflow:hidden;touch-action:none;cursor:grab;user-select:none}
+.seq-lane.audio .seq-clip{background:#087769}.seq-clip.selected{border-color:#ffca4d;box-shadow:0 0 0 1px #ffca4d}.seq-clip span{position:relative;z-index:1;display:block;padding:3px 10px;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px black}
+.seq-clip img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:fill;opacity:.45;pointer-events:none}
+.seq-handle{position:absolute;top:0;bottom:0;width:8px;background:#ffffff55;z-index:2;cursor:ew-resize}.seq-handle.end{right:0}.seq-handle.start{left:0}
+.seq-playhead{position:absolute;top:28px;bottom:0;width:2px;background:#ef705b;z-index:3;pointer-events:none}
+#seq-status{font-size:11px;color:var(--muted)}#seq-output{display:flex;gap:8px;font-size:11px;align-items:center}.seq-warning{font-size:10px;color:var(--muted);line-height:1.5}.seq-timeline button:disabled{cursor:not-allowed}
+@media(max-width:1000px){.seq-main{grid-template-columns:170px minmax(200px,1fr) 180px}.seq-timeline{height:200px}}
+@media(max-width:720px){.seq-main{grid-template-columns:130px 1fr}.seq-properties{display:none}.seq-timeline{height:190px}}
